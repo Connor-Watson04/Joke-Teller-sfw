@@ -106,6 +106,22 @@ const VoiceRSS = {
   },
 };
 
+// passing joke to VoiceRSS API
+function tellMe(joke) {
+  console.log("tell me:", joke);
+  VoiceRSS.speech({
+    key: "10be71079c3e4eaf9f222c8efa7ae2a5",
+    src: joke,
+    hl: "en-gb",
+    v: "Amy",
+    r: 0,
+    c: "mp3",
+    f: "44khz_16bit_stereo",
+    ssml: false,
+  });
+}
+
+//get jokes from API
 async function fetchJoke() {
   let joke = "";
   const apiUrl = `https://v2.jokeapi.dev/joke/Dark?blacklistFlags=nsfw,religious,racist,sexist`;
@@ -119,24 +135,10 @@ async function fetchJoke() {
       joke = data.joke;
     }
 
-    console.log(joke);
+    tellMe(joke);
   } catch (err) {
     console.log("Error occured", err);
   }
 }
 
 fetchJoke();
-
-function test() {
-  VoiceRSS.speech({
-    key: "10be71079c3e4eaf9f222c8efa7ae2a5",
-    src: "hello world",
-    hl: "en-gb",
-    v: "Amy",
-    r: 0,
-    c: "mp3",
-    f: "44khz_16bit_stereo",
-    ssml: false,
-  });
-}
-test();
