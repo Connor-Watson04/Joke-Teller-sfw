@@ -106,12 +106,33 @@ const VoiceRSS = {
   },
 };
 
+async function fetchJoke() {
+  let joke = "";
+  const apiUrl = `https://v2.jokeapi.dev/joke/Dark?blacklistFlags=nsfw,religious,racist,sexist`;
+  try {
+    const Response = await fetch(apiUrl);
+    const data = await Response.json();
+
+    if (data.setup) {
+      joke = `${data.setup} ... ${data.delivery}`;
+    } else {
+      joke = data.joke;
+    }
+
+    console.log(joke);
+  } catch (err) {
+    console.log("Error occured", err);
+  }
+}
+
+fetchJoke();
+
 function test() {
   VoiceRSS.speech({
     key: "10be71079c3e4eaf9f222c8efa7ae2a5",
-    src: "Hello, world!",
+    src: "hello world",
     hl: "en-gb",
-    v: "Linda",
+    v: "Amy",
     r: 0,
     c: "mp3",
     f: "44khz_16bit_stereo",
