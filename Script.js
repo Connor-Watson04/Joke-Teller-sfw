@@ -129,7 +129,7 @@ function tellMe(joke) {
 //get jokes from API
 async function fetchJoke() {
   let joke = "";
-  const apiUrl = `https://v2.jokeapi.dev/joke/Dark`;
+  const apiUrl = `https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,religious,political,racist,sexist,explicit`;
   try {
     const Response = await fetch(apiUrl);
     const data = await Response.json();
