@@ -106,6 +106,11 @@ const VoiceRSS = {
   },
 };
 
+// disable/enable button
+function toggleBtn() {
+  jokeBtn.disabled = !jokeBtn.disabled;
+}
+
 // passing joke to VoiceRSS API
 function tellMe(joke) {
   console.log("tell me:", joke);
@@ -124,7 +129,7 @@ function tellMe(joke) {
 //get jokes from API
 async function fetchJoke() {
   let joke = "";
-  const apiUrl = `https://v2.jokeapi.dev/joke/Dark?blacklistFlags=nsfw,religious,racist,sexist`;
+  const apiUrl = `https://v2.jokeapi.dev/joke/Dark`;
   try {
     const Response = await fetch(apiUrl);
     const data = await Response.json();
@@ -134,11 +139,16 @@ async function fetchJoke() {
     } else {
       joke = data.joke;
     }
-
+    // text-speech
     tellMe(joke);
+
+    // disable button
+    toggleBtn();
   } catch (err) {
     console.log("Error occured", err);
   }
 }
 
-fetchJoke();
+// event listeners
+jokeBtn.addEventListener("click", fetchJoke);
+audioElement.addEventListener("ended", toggleBtn);
